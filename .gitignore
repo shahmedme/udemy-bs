@@ -1,2 +1,6 @@
 __pycache__
 .idea
+venv
+media
+env.py
+env_prod.py
