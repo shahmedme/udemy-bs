@@ -4,3 +4,4 @@ venv
 media
 env.py
 env_prod.py
+db.sqlite3
