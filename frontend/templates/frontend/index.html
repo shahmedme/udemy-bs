@@ -1,78 +1,66 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Udemy</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="/">Udemy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Udemy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Categories <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-success" href="#">Login</a>
+                    </li>
+                    <li class="nav-item ml-2">
+                        <a class="btn btn-danger" href="#">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row pt-5">
-        <div class="col-md-3">
-            <form method="post">
-                {% csrf_token %}
-                {% for language in languages %}
+    </nav>
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-md-3">
+                {% if languages %}
+                <form method="post">
+                    {% csrf_token %}
+                    {% for language in languages %}
                     <div>
                         <input type="checkbox" id="lang{{ language.id }}" name="language" value="{{ language.id }}">
                         <label for="lang{{ language.id }}">{{ language.name }}</label>
                     </div>
-                {% endfor %}
-                <input type="submit">
-            </form>
-        </div>
-        <div class="col-md-9">
-            <div class="row courses">
-                {% for course in courses %}
+                    {% endfor %}
+                    <input type="submit">
+                </form>
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <div class="row courses">
+                    {% for course in courses %}
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <img class="card-img-top"
-                                 src="{% get_media_prefix %}{{ course.thumbnail }}"
-                                 alt="Card image cap">
+                            <img class="card-img-top" src="{% get_media_prefix %}{{ course.thumbnail }}"
+                                alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ course.name }}</h5>
                                 <p class="card-text">{{ course.description }}</p>
@@ -80,10 +68,11 @@
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>
