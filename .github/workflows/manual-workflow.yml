@@ -1,4 +1,4 @@
-name: Django CI
+name: Manual Workflow
 
 on: [workflow_dispatch]
 
