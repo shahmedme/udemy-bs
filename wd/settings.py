@@ -1,13 +1,13 @@
 import os
-from env import *
+from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = SECRET_KEY
+SECRET_KEY = config('SECRET_KEY', default='supersecretkey')
 
-DEBUG = DEBUG
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ALLOWED_HOSTS
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'frontend',
@@ -51,7 +51,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'wd.wsgi.application'
 
 DATABASES = {
-    'default': DB_CONFIG
+    'default': {
+        'ENGINE': config('DB_ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': config('DB_NAME', default=os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': config('DB_USER', default='root'),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default='127.0.0.1'),
+        'PORT': config('DB_PORT', default=3306, cast=int)
+    }
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -78,3 +85,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
