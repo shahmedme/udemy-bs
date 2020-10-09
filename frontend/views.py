@@ -15,6 +15,7 @@ def index(request):
         return render(request, 'frontend/index.html', context)
 
     elif request.method == 'POST':
+        print("post request is received")
         languages = request.POST.getlist('language')
         languages = list(map(int, languages))
         courses = Course.objects.filter(language__in=languages).distinct()
